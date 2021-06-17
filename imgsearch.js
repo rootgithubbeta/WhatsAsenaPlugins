@@ -9,8 +9,10 @@ Asena.addCommand({pattern: 'gimg ?(.*)', fromMe: true, desc: 'Search any number 
 	message.client.sendMessage(message.jid,arg[0], MessageType.text);
 	message.client.sendMessage(message.jid,arg[1], MessageType.text);
 	if (arg[1]=== '') arg[1] = 5 ;
+	
+	try {
 	gis(arg[0], async (error, result) => {
-        for (var i = 0; i < (result.length < arg[1] ? result.length : arg[1]); i++) {
+        for (var i = 0; i < (result.length < parseInt(arg[1]) ? result.length : parseInt(arg[1])); i++) {
             var get = got(result[i].url, {https: {rejectUnauthorized: false}});
             var stream = get.buffer();
                 
@@ -18,7 +20,13 @@ Asena.addCommand({pattern: 'gimg ?(.*)', fromMe: true, desc: 'Search any number 
                 await message.client.sendMessage(message.jid,image, MessageType.image);
             });
         }
+} catch (e) {
+    message.client.sendMessage(message.jid,e, MessageType.text);
+} finally {
+    message.client.sendMessage(message.jid,'fucked', MessageType.text);
+}
 
+	message.reply('Working on it!');
         message.reply('Uploading ${arg[1]} photo(s) of ${arg[0]}');
     });
 }));
