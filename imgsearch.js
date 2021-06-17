@@ -2,7 +2,7 @@ const Asena = require('../events');
 const {MessageType,Mimetype} = require('@adiwajshing/baileys');
 const got = require('got');
 
-Asena.addCommand({pattern: 'imgsrch ?(.*)', fromMe: true, desc: 'Search any number of pictures' }, (async (message, match) => { 
+Asena.addCommand({pattern: 'gimg ?(.*)', fromMe: true, desc: 'Search any number of pictures' }, (async (message, match) => { 
     if (match[1] === '') return await message.client.sendMessage(message.jid,'What do you what to search : number of images want',MessageType.text);
     var arg = match[1].split(':') ;
 	if (arg[1]=== '') arg[1] = 5 ;
