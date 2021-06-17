@@ -16,6 +16,6 @@ Asena.addCommand({pattern: 'gimg ?(.*)', fromMe: true, desc: 'Search any number 
             });
         }
 
-        message.reply('Uploading photo ```{}``` number ```{} `...'((result.length < arg[1] ? result.length : arg[1]), arg[0]));
+        message.reply('Uploading ${arg[1]} photo(s) of ${arg[0]}');
     });
 }));
