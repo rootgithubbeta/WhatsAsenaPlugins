@@ -12,6 +12,7 @@ Asena.addCommand({pattern: 'fetch ?(.*)', fromMe: false, desc: 'Send text messag
 		await message.client.sendMessage(message.jid,'*Text msg* - .fetch hi this is text msg;text',MessageType.text);
 		await message.client.sendMessage(message.jid,'*Normal Direct link* - .fetch https://example.com/example.pdf;url;example.pdf',MessageType.text);
 		return await message.client.sendMessage(message.jid,'*Multi Part split url* (assume it has 5 parts) - .fetch https://example.com/example.pdf.001;url;example.pdf;5',MessageType.text);
+	}
 	try{
 		arg = match[1].split(';');
 		if (arg[1] === 'url') {
