@@ -33,27 +33,31 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 			//return await message.client.sendMessage(message.jid,'Unknown type sended',MessageType.text);
 		} else if (arg.length < 5 ) {
 			await message.client.sendMessage(message.jid,'Wait!',MessageType.text);
-			const filearray = [];
 			for (let i = 1; i <= parseInt(arg[3]); i++) {
 				var str = "" + i ;
 				var pad = "000" ;
 				var ans = pad.substring(0, pad.length - str.length) + str ;
 				//await message.client.sendMessage(message.jid,arg[0]+'.'+ans,MessageType.text);
-				filearray[i] = await axios.get(arg[0]+'.'+ans, { responseType: 'arraybuffer' })
-				await message.sendMessage(Buffer.from(filearray[i].data), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans})
+				var file = await axios.get(arg[0]+'.'+ans, { responseType: 'arraybuffer' })
+				await message.sendMessage(Buffer.from(file.data), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans})
+				file = null ;
+				await message.client.sendMessage(message.jid,'Sleeping 10 seconds to *Save memory*',MessageType.text);
+				await sleep(10000);
 			}
 			return await message.client.sendMessage(message.jid,'Downloaded files will be in *WhatsAppDocuments folder*',MessageType.text);
 	}
 		else{
 			await message.client.sendMessage(message.jid,'Wait!',MessageType.text);
-			const filearray = [];
 			for (let i = parseInt(arg[3]); i <= parseInt(arg[4]); i++) {
 				var str = "" + i ;
 				var pad = "000" ;
 				var ans = pad.substring(0, pad.length - str.length) + str ;
 				//await message.client.sendMessage(message.jid,arg[0]+'.'+ans,MessageType.text);
-				filearray[i] = await axios.get(arg[0]+'.'+ans, { responseType: 'arraybuffer' })
-				await message.sendMessage(Buffer.from(filearray[i].data), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans})
+				var file = await axios.get(arg[0]+'.'+ans, { responseType: 'arraybuffer' })
+				await message.sendMessage(Buffer.from(file.data), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans})
+				file = null ;
+				await message.client.sendMessage(message.jid,'Sleeping 10 seconds to *Save memory*',MessageType.text);
+				await sleep(10000);
 			}
 			return await message.client.sendMessage(message.jid,'Downloaded files will be in *WhatsAppDocuments folder*',MessageType.text);
 		}
@@ -62,3 +66,9 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 		return await message.client.sendMessage(message.jid,e,MessageType.text);
 	}
 }));
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
