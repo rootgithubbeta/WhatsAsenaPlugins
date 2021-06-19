@@ -74,7 +74,7 @@ function sleep(ms) {
   });
 }
 
-async function downloadImage (link) {  
+async function downloadImage () {  
   const url = link ;
   const writer = Fs.createWriteStream('./temp.temp') ;
 
