@@ -21,7 +21,7 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 				var webimage = await axios.get(arg[0], { responseType: 'arraybuffer' })
 				await message.sendMessage(Buffer.from(webimage.data), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]})
 				//await message.sendMessage(Buffer.from(webimage.data), MessageType.video)
-				return await message.client.sendMessage(message.jid,'Your file is in WhatsAppDocuments folder',MessageType.text);
+				//return await message.client.sendMessage(message.jid,'Your file is in WhatsAppDocuments folder',MessageType.text);
 			}
 			if (arg[1] === 'text') return await message.client.sendMessage(message.jid,arg[0],MessageType.text);
 			//if (arg[1] === 'video') return await message.client.sendMessage(message.jid,arg[0],MessageType.video);
@@ -39,7 +39,7 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 				filearray[i] = await axios.get(arg[0]+'.'+ans, { responseType: 'arraybuffer' })
 				await message.sendMessage(Buffer.from(filearray[i].data), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans})
 			}
-			return await message.client.sendMessage(message.jid,'Your file is in WhatsAppDocuments folder',MessageType.text);
+			//return await message.client.sendMessage(message.jid,'Your file is in WhatsAppDocuments folder',MessageType.text);
 	}
 	}
 	catch(e){
