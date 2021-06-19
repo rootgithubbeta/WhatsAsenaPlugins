@@ -7,11 +7,12 @@ const got = require("got");
 
 Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message or Remote url (*Script by Serial_Killer*)' }, (async (message, match) => { 
 	if (match[1] === '') {
-		await message.client.sendMessage(message.jid,'message;type(text or url);(if type is url)file name;(if sequencal multipart links)how many parts left including 001 file',MessageType.text);
+		await message.client.sendMessage(message.jid,'message;type(text or url);(if type is url)file name;(if sequencal multipart links)how many parts left including 001 file(if your upload intterupted put next part number);how many parts are totally in the interupted downloading',MessageType.text);
 		await message.client.sendMessage(message.jid,'*Examples*',MessageType.text);
 		await message.client.sendMessage(message.jid,'*Text msg* - .wget hi this is text msg;text',MessageType.text);
 		await message.client.sendMessage(message.jid,'*Normal Direct link* - .wget https://example.com/example.pdf;url;example.pdf',MessageType.text);
-		return await message.client.sendMessage(message.jid,'*Multi Part split url* (assume it has 5 parts) - .wget https://example.com/example.pdf(without .001);url;example.pdf;5',MessageType.text);
+		await message.client.sendMessage(message.jid,'*Multi Part split url* (assume it has 5 parts) - .wget https://example.com/example.pdf(without .001);url;example.pdf;5',MessageType.text);
+		return await message.client.sendMessage(message.jid,'*Multi Part split url* (assume it has 5 parts and only downloaded 2) - .wget https://example.com/example.pdf(without .001);url;example.pdf;3;5',MessageType.text);
 	}
 	try{
 		arg = match[1].split(';');
@@ -30,7 +31,7 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 			//if (arg[1] === 'document') return await message.client.sendMessage(message.jid,arg[0],MessageType.document);
 			//if (arg[1] === '') return await message.client.sendMessage(message.jid,'No type sended',MessageType.text);
 			//return await message.client.sendMessage(message.jid,'Unknown type sended',MessageType.text);
-		} else {
+		} else if (arg.length < 5 ) {
 			await message.client.sendMessage(message.jid,'Wait!',MessageType.text);
 			const filearray = [];
 			for (let i = 1; i <= parseInt(arg[3]); i++) {
@@ -43,6 +44,19 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 			}
 			return await message.client.sendMessage(message.jid,'Downloaded files will be in *WhatsAppDocuments folder*',MessageType.text);
 	}
+		else{
+			await message.client.sendMessage(message.jid,'Wait!',MessageType.text);
+			const filearray = [];
+			for (let i = parseInt(arg[3]); i <= parseInt(arg[4]); i++) {
+				var str = "" + i ;
+				var pad = "000" ;
+				var ans = pad.substring(0, pad.length - str.length) + str ;
+				//await message.client.sendMessage(message.jid,arg[0]+'.'+ans,MessageType.text);
+				filearray[i] = await axios.get(arg[0]+'.'+ans, { responseType: 'arraybuffer' })
+				await message.sendMessage(Buffer.from(filearray[i].data), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans})
+			}
+			return await message.client.sendMessage(message.jid,'Downloaded files will be in *WhatsAppDocuments folder*',MessageType.text);
+		}
 	}
 	catch(e){
 		return await message.client.sendMessage(message.jid,e,MessageType.text);
