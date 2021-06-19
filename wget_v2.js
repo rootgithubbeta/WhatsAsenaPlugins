@@ -1,7 +1,6 @@
 const Asena = require('../events');
 const {MessageType, MessageOptions, Mimetype} = require('@adiwajshing/baileys');
 const fs = require('fs');
-const Path = require('path');
 const axios = require('axios');
 const request = require('request');
 const got = require("got");
@@ -22,7 +21,8 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 			if (arg[1] === 'url') {
 				await message.client.sendMessage(message.jid,'Wait!',MessageType.text);
 				await downloadImage(arg[0]);
-				await message.sendMessage(fs.readFileSync('temp.temp'), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]});
+				await message.sendMessage(fs.readFileSync('./temp.temp'), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]});
+				await fs.unlinkSync('./temp.temp');
 				//await message.sendMessage(Buffer.from(webimage.data), MessageType.video)
 				return await message.client.sendMessage(message.jid,'This file donwloads to *WhatsAppDocuments folder*',MessageType.text);
 			}
@@ -40,7 +40,8 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 				var ans = pad.substring(0, pad.length - str.length) + str ;
 				//await message.client.sendMessage(message.jid,arg[0]+'.'+ans,MessageType.text);
 				await downloadImage(arg[0]+'.'+ans);
-				await message.sendMessage(fs.readFileSync('temp.temp'), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans});
+				await message.sendMessage(fs.readFileSync('./temp.temp'), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans});
+				await fs.unlinkSync('./temp.temp');
 				//await message.client.sendMessage(message.jid,'Sleeping 15 seconds to *Save memory*',MessageType.text);
 				//await sleep(15000);
 			}
@@ -54,7 +55,8 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 				var ans = pad.substring(0, pad.length - str.length) + str ;
 				//await message.client.sendMessage(message.jid,arg[0]+'.'+ans,MessageType.text);
 				await downloadImage(arg[0]+'.'+ans);
-				await message.sendMessage(fs.readFileSync('temp.temp'), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans});
+				await message.sendMessage(fs.readFileSync('./temp.temp'), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans});
+				await fs.unlinkSync('./temp.temp');
 				//await message.client.sendMessage(message.jid,'Sleeping 15 seconds to *Save memory*',MessageType.text);
 				//await sleep(15000);
 			}
@@ -74,8 +76,7 @@ function sleep(ms) {
 
 async function downloadImage (link) {  
   const url = link
-  const path = Path.resolve('wwwroot', 'temp.temp')
-  const writer = Fs.createWriteStream(path)
+  const writer = Fs.createWriteStream('./temp.temp')
 
   const response = await Axios({
     url,
