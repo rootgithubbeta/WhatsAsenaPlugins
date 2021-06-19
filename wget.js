@@ -5,7 +5,7 @@ const axios = require('axios');
 const request = require('request');
 const got = require("got");
 
-Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message or Remote url (Script by Serial_Killer)' }, (async (message, match) => { 
+Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message or Remote url (*Script by Serial_Killer*)' }, (async (message, match) => { 
 	if (match[1] === '') {
 		await message.client.sendMessage(message.jid,'message;type(text or url);(if type is url)file name;(if sequencal multipart links)how many parts left including 001 file',MessageType.text);
 		await message.client.sendMessage(message.jid,'*Examples*',MessageType.text);
