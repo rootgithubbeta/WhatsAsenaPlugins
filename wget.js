@@ -15,7 +15,7 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 	}
 	try{
 		arg = match[1].split(';');
-		if (arg[3].length < 4 ){
+		if (arg.length < 4 ){
 			
 			if (arg[1] === 'url') {
 				var webimage = await axios.get(arg[0], { responseType: 'arraybuffer' })
