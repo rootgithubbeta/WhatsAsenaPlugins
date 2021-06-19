@@ -31,10 +31,10 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 			//return await message.client.sendMessage(message.jid,'Unknown type sended',MessageType.text);
 		} else {
 			for (let i = 1; i <= parseInt(arg[3]); i++) {
-				var str = "" + arg[3] ;
+				var str = "" + i ;
 				var pad = "000" ;
 				var ans = pad.substring(0, pad.length - str.length) + str ;
-				await message.client.sendMessage(message.jid,arg[0]+ans,MessageType.text);
+				await message.client.sendMessage(message.jid,arg[0]+'.'+ans,MessageType.text);
 			}
 			return;
 	}
