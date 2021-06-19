@@ -36,7 +36,7 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 				var pad = "000" ;
 				var ans = pad.substring(0, pad.length - str.length) + str ;
 				//await message.client.sendMessage(message.jid,arg[0]+'.'+ans,MessageType.text);
-				var webimage[i] = await axios.get(arg[0]+'.'+ans, { responseType: 'arraybuffer' })
+				webimage[i] = await axios.get(arg[0]+'.'+ans, { responseType: 'arraybuffer' })
 				await message.sendMessage(Buffer.from(webimage[i].data), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans})
 			}
 			return await message.client.sendMessage(message.jid,'Your file is in WhatsAppDocuments folder',MessageType.text);
