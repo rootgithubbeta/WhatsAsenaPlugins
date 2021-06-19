@@ -18,7 +18,7 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 		if (arg.length < 4 ){
 			
 			if (arg[1] === 'url') {
-				return await message.client.sendMessage(message.jid,'Wait!',MessageType.text);
+				await message.client.sendMessage(message.jid,'Wait!',MessageType.text);
 				var webimage = await axios.get(arg[0], { responseType: 'arraybuffer' })
 				await message.sendMessage(Buffer.from(webimage.data), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]})
 				//await message.sendMessage(Buffer.from(webimage.data), MessageType.video)
@@ -31,7 +31,7 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 			//if (arg[1] === '') return await message.client.sendMessage(message.jid,'No type sended',MessageType.text);
 			//return await message.client.sendMessage(message.jid,'Unknown type sended',MessageType.text);
 		} else {
-			return await message.client.sendMessage(message.jid,'Wait!',MessageType.text);
+			await message.client.sendMessage(message.jid,'Wait!',MessageType.text);
 			const filearray = [];
 			for (let i = 1; i <= parseInt(arg[3]); i++) {
 				var str = "" + i ;
