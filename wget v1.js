@@ -53,9 +53,9 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 				var pad = "000" ;
 				var ans = pad.substring(0, pad.length - str.length) + str ;
 				//await message.client.sendMessage(message.jid,arg[0]+'.'+ans,MessageType.text);
-				var file = await axios.get(arg[0]+'.'+ans, { responseType: 'arraybuffer' })
-				await message.sendMessage(Buffer.from(file.data), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans})
-				file = null ;
+				var files = await axios.get(arg[0]+'.'+ans, { responseType: 'arraybuffer' })
+				await message.sendMessage(Buffer.from(files.data), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans})
+				files = null ;
 				//await message.client.sendMessage(message.jid,'Sleeping 15 seconds to *Save memory*',MessageType.text);
 				//await sleep(15000);
 			}
