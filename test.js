@@ -11,7 +11,8 @@ Asena.addCommand({pattern: 'utst ?(.*)', fromMe: true, desc: 'Send message for t
 		arg = match[1].split(';');
 		if (arg[1] === 'url') {
 			var webimage = await axios.get(arg[0], { responseType: 'arraybuffer' })
-			await message.sendMessage(Buffer.from(webimage.data), MessageType.document, {mimetype: Mimetype.application, caption: 'Your url! '})
+			//await message.sendMessage(Buffer.from(webimage.data), MessageType.document, {mimetype: Mimetype.application, caption: 'Your url! '})
+			await message.sendMessage(Buffer.from(webimage.data), MessageType.video)
 			return;
 		}
 		if (arg[1] === 'text') return await message.client.sendMessage(message.jid,arg[0],MessageType.text);
