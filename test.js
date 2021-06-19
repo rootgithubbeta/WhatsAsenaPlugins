@@ -5,13 +5,13 @@ const axios = require('axios');
 const request = require('request');
 const got = require("got");
 
-Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send message for testing' }, (async (message, match) => { 
+Asena.addCommand({pattern: 'fetch ?(.*)', fromMe: false, desc: 'Send text message or Remote url' }, (async (message, match) => { 
 	if (match[1] === '') {
 		await message.client.sendMessage(message.jid,'message;type(text or url);(if type is url)file name;(if sequencal multipart links)how many parts left including 001 file',MessageType.text);
 		await message.client.sendMessage(message.jid,'*Examples*',MessageType.text);
-		await message.client.sendMessage(message.jid,'*Text msg* - .wget hi this is text msg;text',MessageType.text);
-		await message.client.sendMessage(message.jid,'*Normal Direct link* - .wget https://example.com/example.pdf;url;example.pdf',MessageType.text);
-		await message.client.sendMessage(message.jid,'*Multi Part split url* (assume it has 5 parts) - .wget https://example.com/example.pdf.001;url;example.pdf;5',MessageType.text);
+		await message.client.sendMessage(message.jid,'*Text msg* - .fetch hi this is text msg;text',MessageType.text);
+		await message.client.sendMessage(message.jid,'*Normal Direct link* - .fetch https://example.com/example.pdf;url;example.pdf',MessageType.text);
+		return await message.client.sendMessage(message.jid,'*Multi Part split url* (assume it has 5 parts) - .fetch https://example.com/example.pdf.001;url;example.pdf;5',MessageType.text);
 	try{
 		arg = match[1].split(';');
 		if (arg[1] === 'url') {
