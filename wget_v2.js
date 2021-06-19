@@ -1,6 +1,7 @@
 const Asena = require('../events');
 const {MessageType, MessageOptions, Mimetype} = require('@adiwajshing/baileys');
 const fs = require('fs');
+const Path = require('path');
 const axios = require('axios');
 const request = require('request');
 const got = require("got");
@@ -20,8 +21,8 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 			
 			if (arg[1] === 'url') {
 				await message.client.sendMessage(message.jid,'Wait!',MessageType.text);
-				var webimage = await axios.get(arg[0], { responseType: 'arraybuffer' })
-				await message.sendMessage(Buffer.from(webimage.data), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]})
+				await downloadImage(arg[0]);
+				await message.sendMessage(fs.readFileSync('temp.temp'), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]});
 				//await message.sendMessage(Buffer.from(webimage.data), MessageType.video)
 				return await message.client.sendMessage(message.jid,'This file donwloads to *WhatsAppDocuments folder*',MessageType.text);
 			}
@@ -38,11 +39,10 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 				var pad = "000" ;
 				var ans = pad.substring(0, pad.length - str.length) + str ;
 				//await message.client.sendMessage(message.jid,arg[0]+'.'+ans,MessageType.text);
-				var file = await axios.get(arg[0]+'.'+ans, { responseType: 'arraybuffer' })
-				await message.sendMessage(Buffer.from(file.data), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans})
-				file = null ;
+				await downloadImage(arg[0]+'.'+ans);
+				await message.sendMessage(fs.readFileSync('temp.temp'), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans});
 				//await message.client.sendMessage(message.jid,'Sleeping 15 seconds to *Save memory*',MessageType.text);
-				await sleep(15000);
+				//await sleep(15000);
 			}
 			return await message.client.sendMessage(message.jid,'Downloaded files will be in *WhatsAppDocuments folder*',MessageType.text);
 	}
@@ -53,11 +53,10 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Send text message
 				var pad = "000" ;
 				var ans = pad.substring(0, pad.length - str.length) + str ;
 				//await message.client.sendMessage(message.jid,arg[0]+'.'+ans,MessageType.text);
-				var file = await axios.get(arg[0]+'.'+ans, { responseType: 'arraybuffer' })
-				await message.sendMessage(Buffer.from(file.data), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans})
-				file = null ;
+				await downloadImage(arg[0]+'.'+ans);
+				await message.sendMessage(fs.readFileSync('temp.temp'), MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans});
 				//await message.client.sendMessage(message.jid,'Sleeping 15 seconds to *Save memory*',MessageType.text);
-				await sleep(15000);
+				//await sleep(15000);
 			}
 			return await message.client.sendMessage(message.jid,'Downloaded files will be in *WhatsAppDocuments folder*',MessageType.text);
 		}
@@ -71,4 +70,23 @@ function sleep(ms) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
+}
+
+async function downloadImage (link) {  
+  const url = link
+  const path = Path.resolve('wwwroot', 'temp.temp')
+  const writer = Fs.createWriteStream(path)
+
+  const response = await Axios({
+    url,
+    method: 'GET',
+    responseType: 'stream'
+  })
+
+  response.data.pipe(writer)
+
+  return new Promise((resolve, reject) => {
+    writer.on('finish', resolve)
+    writer.on('error', reject)
+  })
 }
