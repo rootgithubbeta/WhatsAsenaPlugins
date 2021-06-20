@@ -18,7 +18,7 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Upload remote url
 		if (arg.length < 3 ){
 			
 			await message.client.sendMessage(message.jid,'Wait!',MessageType.text);
-			await message.sendMessage({ url: arg[0] }, MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]});
+			await message.client.sendMessage(message.jid,{ url: arg[0] }, MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]});
 			return await message.client.sendMessage(message.jid,'This file donwloads to *WhatsAppDocuments folder*',MessageType.text);
 
 		} else if (arg.length < 4 ) {
@@ -28,7 +28,7 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Upload remote url
 				var str = "" + i ;
 				var pad = "000" ;
 				var ans = pad.substring(0, pad.length - str.length) + str ;
-				await message.sendMessage({ url: arg[0]+'.'+ans }, MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans});
+				await message.client.sendMessage(message.jid,{ url: arg[0]+'.'+ans }, MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans});
 			}
 			return await message.client.sendMessage(message.jid,'Downloaded files will be in *WhatsAppDocuments folder*',MessageType.text);
 	}
@@ -38,7 +38,7 @@ Asena.addCommand({pattern: 'wget ?(.*)', fromMe: false, desc: 'Upload remote url
 				var str = "" + i ;
 				var pad = "000" ;
 				var ans = pad.substring(0, pad.length - str.length) + str ;
-				await message.sendMessage({ url: arg[0]+'.'+ans }, MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans});
+				await message.client.sendMessage(message.jid,{ url: arg[0]+'.'+ans }, MessageType.document, {mimetype: 'application/octet-stream' ,filename:arg[2]+'.'+ans});
 			}
 			return await message.client.sendMessage(message.jid,'Downloaded files will be in *WhatsAppDocuments folder*',MessageType.text);
 		}
