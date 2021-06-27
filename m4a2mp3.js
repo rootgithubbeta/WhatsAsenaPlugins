@@ -28,6 +28,6 @@ const ffmpeg = require('fluent-ffmpeg');
 		//.save(fs.createWriteStream("new.mp3"))
 	    	.save('new.mp3')    
 		.on('error', async (err) => {await message.sendMessage(`error ${err}`, MessageType.text);})
-		.on('end', async () => { await message.sendMessage(fs.readFileSync('new.mp3'), MessageType.audio, {mimetype: 'audio/mpeg', ptt: false});}); 
+		.on('end', async () => { await message.sendMessage(fs.readFileSync('new.mp3'), MessageType.document, {mimetype: 'audio/mpeg', ptt: false});}); 
 		return;
     }));
