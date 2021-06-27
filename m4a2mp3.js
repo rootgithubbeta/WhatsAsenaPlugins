@@ -19,7 +19,7 @@ const ffmpeg = require('fluent-ffmpeg');
 
         ffmpeg(location)
 		.withNoVideo()
-		.inputFormat('m4a')
+		.inputFormat('mp4')
 		.audioCodec('libmp3lame')
 		.audioBitrate(128)
 		.format('mp3')
