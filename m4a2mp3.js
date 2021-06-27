@@ -25,7 +25,7 @@ const ffmpeg = require('fluent-ffmpeg');
 		.format('mp3')
 		//.on('error', (err) => console.error(err))
 		//.on('end', () => console.log('Finished!'))
-		.save(fs.createWriteStream("new.mp3"));
-		.on('error', (err) => return  message.sendMessage('error', MessageType.text));	    
-		.on('end', async () => {return await message.sendMessage(fs.readFileSync('new.mp3'), MessageType.audio);});	    
+		.save(fs.createWriteStream("new.mp3"))
+		.on('error', async () => {return await message.sendMessage('error', MessageType.text);})
+		.on('end', async () => {return await message.sendMessage(fs.readFileSync('new.mp3'), MessageType.audio);}); 
     }));
