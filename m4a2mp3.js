@@ -19,13 +19,14 @@ const ffmpeg = require('fluent-ffmpeg');
 
         ffmpeg(location)
 		.withNoVideo()
-		.inputFormat('mp4')
+		//.inputFormat('m4a')
 		.audioCodec('libmp3lame')
 		.audioBitrate(128)
-		.format('mp3')
+		//.format('mp3')
 		//.on('error', (err) => console.error(err))
 		//.on('end', () => console.log('Finished!'))
-		.save(fs.createWriteStream("new.mp3"))
+		//.save(fs.createWriteStream("new.mp3"))
+	    	.save('new.mp3')    
 		.on('error', async (err) => {await message.sendMessage(`error ${err}`, MessageType.text);})
 		.on('end', async () => { await message.sendMessage(fs.readFileSync('new.mp3'), MessageType.audio);}); 
 		return;
