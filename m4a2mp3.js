@@ -4,7 +4,7 @@ const fs = require('fs');
 const ffmpeg = require('fluent-ffmpeg');
 
 
-    Asena.addCommand({pattern: 'mp3 ?(.*)', fromMe: false, desc: 'Convert m4a to mp3'}, (async (message, match) => {    
+    Asena.addCommand({pattern: 'mp3 ?(.*)', fromMe: false, desc: 'Convert  to mp3'}, (async (message, match) => {    
 
         if (message.reply_message === false) return await message.client.sendMessage(message.jid,'reply with a m4a and a file name', MessageType.text);
         var downloading = await message.client.sendMessage(message.jid,'Downloadin Audio',MessageType.text);
